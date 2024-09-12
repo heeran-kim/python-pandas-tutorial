@@ -43,11 +43,35 @@ class CalcFrame(MyFrame1):
     def __init__(self,parent=None):
         super().__init__(parent)
 
+        file_path = './part_wine_reviews.csv'
+        self.df = pd.read_csv(file_path)
+        self.table = DataTable(self.df)
+        self.m_grid1.SetTable(self.table, takeOwnership=True)
+        self.m_grid1.AutoSize()
+
         self.Show(True)
         self.Layout()
         
     # Overload your event function
-    
+    def OnSearch( self, event ):
+        event.Skip()
+        keyword = self.m_textCtrl1.GetValue()
+        ser_descriptions = self.df["description"]
+        index = []
+        for description in ser_descriptions:
+            if re.search(keyword, description):
+                index.append(True)
+            else:
+                index.append(False)
+        df_filtered = self.df[index]
+        
+        self.m_grid1.ClearGrid()
+        self.table = DataTable(df_filtered)
+        self.m_grid1.SetTable(self.table, takeOwnership=True)
+        self.m_grid1.AutoSize()
+        
+        text = f"The number of rows: {len(df_filtered)}"
+        self.m_staticText2.SetLabel(text)
 
 
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ print(df.columns)
 #        'description'],
 #       dtype='object')
 
-# Series
+# Series: Select a column by a column label
 print(df['country'])
 
 # access a specific element
@@ -25,3 +25,33 @@ print(df.iloc[0,3])
 print(df.index)
 df.index = [f'row_{i}' for i in range(len(df.index))]
 print(df.index)
+
+# Select a row by a row label
+print(df.loc['row_0'])
+
+# Selecting all rows (:) with column labels
+print(df.loc[:, ['country', 'points']])
+
+# Select a row by row's position
+print(df.iloc[3])
+
+# Select multiple rows by slices
+print(df.iloc[0:3])
+
+# select a sub-grid by row & colum slices
+print(df.iloc[2:5, 1:3])
+
+# select a sub-grid by specific positions
+print(df.iloc[[0,2,3], [1,7]])
+
+#
+print(df[df["price"] < 10].loc[:, ['price']])
+
+# randomly pick rows
+import numpy as np
+bool_ind = np.random.random((299,))
+print(bool_ind)
+bool_idx = bool_ind > 0.5
+print(bool_idx)
+new_df = df[bool_idx]
+print(new_df)
