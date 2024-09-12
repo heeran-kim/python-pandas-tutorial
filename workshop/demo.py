@@ -2,7 +2,7 @@ import pandas as pd
 import re
 
 df = pd.read_csv("./part_wine_reviews.csv")
-# print(df)
+print(df)
 
 df_5 = df.head(5)
 print(df_5)
